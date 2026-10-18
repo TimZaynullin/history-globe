@@ -1,0 +1,42 @@
+name: Publish historical globe
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v6
+      - name: Import prepared project on first publication
+        run: |
+          if [ -f source.zip ]; then
+            unzip -oq source.zip
+            rm source.zip
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add site scripts README.md .gitignore source.zip
+            git commit -m 'Import globe assets and GitHub Pages build'
+            git push
+          fi
+      - uses: actions/configure-pages@v5
+        id: pages
+      - name: Build for the published URL
+        run: node scripts/build-pages.mjs
+        env:
+          BASE_PATH: ${{ steps.pages.outputs.base_path }}
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+      - uses: actions/deploy-pages@v4
+        id: deployment
