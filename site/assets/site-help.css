@@ -15,7 +15,7 @@
 .hg-help-footer { display:flex; gap:20px; justify-content:space-between; align-items:center; margin-top:22px; }
 .hg-help-footer p { color:var(--hg-muted); font-size:13px; margin:0; max-width:470px; }
 .hg-help-start { border:0; border-radius:24px; padding:12px 22px; background:#ac8030; color:white; font-weight:650; white-space:nowrap; }
-.hg-help-open { display:inline-flex; align-items:center; justify-content:center; flex-shrink:0; width:30px; height:30px; padding:0; margin-left:6px; border:1px solid #ae8d4b66; border-radius:50%; background:#ad853b16; color:inherit; font:700 17px Georgia,serif; cursor:pointer; vertical-align:middle; }
+.hg-help-open { pointer-events:auto; display:inline-flex; align-items:center; justify-content:center; flex-shrink:0; width:30px; height:30px; padding:0; margin-left:6px; border:1px solid #ae8d4b66; border-radius:50%; background:#ad853b16; color:inherit; font:700 17px Georgia,serif; cursor:pointer; vertical-align:middle; }
 .hg-help-open:hover { background:#ad853b33; }
 .hg-help :focus-visible,.hg-help-open:focus-visible { outline:3px solid #d0a74d; outline-offset:3px; }
 body:has(.hg-help[open]) { overflow:hidden; }
